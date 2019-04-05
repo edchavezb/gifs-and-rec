@@ -1,0 +1,82 @@
+body {
+    background: #121212
+}
+
+.prcolor {
+    background: #48B137;
+}
+
+.prcolor:hover{
+    background: rgb(58, 163, 42)
+}
+
+.prbutton {
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    line-height: 100px;
+}
+
+.menubutton {
+    width: 80%;
+    height: 92%;
+    cursor: pointer;
+    line-height: 46px;
+}
+
+.clear {
+    height: 50px;
+    cursor: pointer;
+    line-height: 50px;
+}
+
+.buttontext {
+    vertical-align: middle;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #ffffff
+}
+
+.title {
+    line-height: 100px;
+    vertical-align: middle;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: -3px 2px 5px black;
+    background-image: url("../images/mural2.jpg"); 
+}
+
+.buttons-row {
+    margin-left: 5px;
+}
+
+.prgif {
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="checkbox"], label {
+    float: left;
+    line-height: 1.6em;
+    height: 1.6em;
+    margin: 0px 2px;
+    padding: 0px;
+    font-size: inherit;
+}
+
+input[type="checkbox"] {
+    clear: left;
+}
+
+label {
+    margin-left: 20px;
+}
+
+.dropdown-menu {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 100% !important;
+}
