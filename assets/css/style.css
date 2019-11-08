@@ -11,17 +11,48 @@ body {
 }
 
 .prbutton {
+    display: inline-block;
     height: 100px;
-    width: 100px;
+/*     width: 100px; */
     cursor: pointer;
     line-height: 100px;
+/*     margin: 0 2.5px; */
+}
+
+.prbutton{
+    width: 15.6%;
+    margin: 0 0.5%;
+}
+
+.buttons-row {
+    display: inline-block;
+    width: 98%;
+    margin: 0 1%;
+}
+
+.options-column {
+    height: 100px;
+    width: 100px;
 }
 
 .menubutton {
-    width: 80%;
-    height: 92%;
+    height: 48%;
     cursor: pointer;
-    line-height: 46px;
+    line-height: 48%;
+}
+
+.dropdown{
+    height: 100%;
+}
+
+#dropdownMenuButton{
+    margin-top: 4%
+}
+
+.icon{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%)
 }
 
 .clear {
@@ -38,7 +69,8 @@ body {
     color: #ffffff
 }
 
-.title {
+.title-banner {
+    height: 100px;
     line-height: 100px;
     vertical-align: middle;
     font-family: 'Nunito Sans', sans-serif;
@@ -49,8 +81,11 @@ body {
     background-image: url("../images/mural2.jpg"); 
 }
 
-.buttons-row {
-    margin-left: 5px;
+.title{
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
 }
 
 .prgif {
@@ -79,4 +114,75 @@ label {
     left: 50% !important;
     transform: translateX(-50%) !important;
     top: 100% !important;
+}
+
+@media (max-width: 1200px){
+    .prbutton{
+        height: 82px;
+        line-height: 82px;
+    }
+    .title-banner{
+        height: 82px;
+        line-height: 82px;
+    }
+    .options-column {
+        height: 82px;
+        width: 82px;
+    }
+}
+
+@media (max-width: 992px){
+    .title-banner{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 767px){
+    .title-banner{
+        font-size: 2.0rem;
+    }
+    .prbutton{
+        height: 60px;
+        width: 135px;
+        line-height: 60px;
+        margin: 3px;
+    }
+    .buttons-row{
+        width: 100%;
+        margin: 0px;
+    }
+    .options-column {
+        height: 132px;
+        width: 100%;
+    }
+    .menubutton {
+        display: inline-block;
+        height: 60px;
+        line-height: 100%;
+        width: 95%;
+        margin: 3px;
+    }
+    #dropdownMenuButton{
+        margin-top: 3px
+    }
+}
+
+@media (max-width: 576px){
+    .prbutton{
+        width: 31%;
+        margin: 1%;
+    }
+    .options-column {
+        width: 100%;
+    }
+    .menubutton {
+        display: inline-block;
+        height: 60px;
+        line-height: 100%;
+        width: 90%;
+        margin: 5%;
+    }
+    #dropdownMenuButton{
+        margin-top: 3px
+    }
 }

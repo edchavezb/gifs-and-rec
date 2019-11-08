@@ -71,7 +71,7 @@ function buttonRender() {
   btnText.addClass("buttontext");
   btnText.text(selected[i].name);
 
-  myButton.addClass("prbutton prcolor text-center mx-1");
+  myButton.addClass("prbutton prcolor text-center");
   myButton.attr("data-char", selected[i].fullname);
   myButton.html(btnText);
  
