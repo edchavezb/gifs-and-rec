@@ -1,6 +1,15 @@
 
 var width = $(window).width()
-console.log(width)
+var gifCount = 0
+
+if (localStorage.getItem('gifCount') !== null){
+  gifCount = localStorage.getItem('gifCount')
+}
+else {
+  localStorage.setItem('gifCount', gifCount)
+}
+
+console.log(localStorage.getItem('gifCount'))
 
 var pawnee = [
   {"fullname":"Leslie Knope", "name": "Leslie"}, 
