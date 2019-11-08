@@ -1,4 +1,7 @@
 
+var width = $(window).width()
+console.log(width)
+
 var pawnee = [
   {"fullname":"Leslie Knope", "name": "Leslie"}, 
   {"fullname":"Ron Swanson", "name": "Ron"},
@@ -117,21 +120,25 @@ function ajaxCall(){
       for (var i = 0; i < results.length; i++) {
         var gifDiv = $("<div>");
         var charGif = $("<img>");
-        var rating = results[i].rating;
         charGif.attr("src", results[i].images.original_still.url);
         charGif.attr("data-still", results[i].images.original_still.url);
         charGif.attr("data-move", results[i].images.original.url);
         charGif.attr("data-state", "still");
         charGif.addClass("prgif mt-2");
         gifDiv.append(charGif);
-        if (i <= 2){
+        if (width < 768){
           $(".gifcol1").prepend(gifDiv);
         }
-        else if (i <= 5){
-          $(".gifcol2").prepend(gifDiv);
-        }
-        else if (i <= 8){
-          $(".gifcol3").prepend(gifDiv);
+        else {
+          if (i <= 2){
+            $(".gifcol1").prepend(gifDiv);
+          }
+          else if (i <= 5){
+            $(".gifcol2").prepend(gifDiv);
+          }
+          else if (i <= 8){
+            $(".gifcol3").prepend(gifDiv);
+          }
         }
       }
 

@@ -185,4 +185,8 @@ label {
     #dropdownMenuButton{
         margin-top: 3px
     }
+    .dropdown-menu {
+        left: -100px !important;
+        top: 100% !important;
+    }
 }
