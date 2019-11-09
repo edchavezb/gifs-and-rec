@@ -159,16 +159,7 @@ $(".prbutton").on("click", function() {
       }
     }
 
-    $(".prgif").on("mousedown touchstart", function() {
-      var still = $(this).attr("data-still")
-      var move = $(this).attr("data-move")
-      timer = setTimeout(function(){
-        $("#yes-save").attr("data-still", still).attr("data-move", move)
-        console.log(favorites)
-        modalVisible = true;
-        $(".modal").show()
-      },1000);
-    }).on("mouseup touchend", function() {
+    $(".prgif").on("click", function() {
       clearTimeout(timer);
       if (modalVisible === false){
         var state = $(this).attr("data-state");
@@ -186,6 +177,21 @@ $(".prbutton").on("click", function() {
   });
 });
 
+$(document.body).on("mousedown touchstart", ".prgif", function() {
+  var still = $(this).attr("data-still")
+  var move = $(this).attr("data-move")
+  timer = setTimeout(function(){
+    $("#yes-save").attr("data-still", still).attr("data-move", move)
+    console.log(favorites)
+    modalVisible = true;
+    $(".modal").show()
+  },1000);
+}).on("mouseup touchend", ".prgif", function() {
+  clearTimeout(timer);
+}).on("mousemove touchmove", ".prgif", function() {
+  clearTimeout(timer);
+});
+
 $("#yes-save").on("click", function() {
   var still = $(this).attr("data-still")
   var move = $(this).attr("data-move")
@@ -198,15 +204,20 @@ $("#yes-save").on("click", function() {
   favorites = localStorage.getItem("favoriteGifs")
   console.log(favorites)
   $(".modal").hide()
+  modalVisible = false;
 });
 
 $("#no-save").on("click", function() {
   $(".modal").hide()
+  modalVisible = false;
+  clearTimeout(timer);
 });
 
 window.onclick = function(event) {
   if (event.target == modal) {
     $(".modal").hide()
+    modalVisible = false;
+    clearTimeout(timer);
   }
 }
 
