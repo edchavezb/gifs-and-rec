@@ -112,7 +112,7 @@ $(".prbutton").on("click", function() {
   $(".clear").show();
   var randomOffset = Math.floor(Math.random() * 50);
   var person = $(this).attr("data-char");
-  var queryURL = `https://api.giphy.com/v1/gifs/search?q=${person}&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=10&offset=${randomOffset}`;
+  var queryURL = `https://api.giphy.com/v1/gifs/search?q=${person}&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=9&offset=${randomOffset}`;
 
   $.ajax({
     url: queryURL,
@@ -139,13 +139,13 @@ $(".prbutton").on("click", function() {
         $(".gifcol1").prepend(gifDiv);
       }
       else {
-        if (i <= 2){
+        if (i === 0 || i === 3 || i === 6){
           $(".gifcol1").prepend(gifDiv);
         }
-        else if (i <= 5){
+        else if (i === 1 || i === 4 || i === 7){
           $(".gifcol2").prepend(gifDiv);
         }
-        else if (i <= 8){
+        else if (i === 2 || i === 5 || i === 8){
           $(".gifcol3").prepend(gifDiv);
         }
       }
@@ -221,3 +221,37 @@ window.oncontextmenu = function(event) {
   event.stopPropagation();
   return false;
 };
+
+$("#show-favorites").on("click", function() {
+  $(".column").empty();
+  $(".clear").show();
+  
+  for (var i = 0; i < favorites.length; i++) {
+    var gifDiv = $("<div>");
+    var charGif = $("<img>");
+    var favButton = $("<i>");
+    gifDiv.addClass("gif-div")
+    charGif.attr("src", favorites[i].gifStill);
+    charGif.attr("data-still", favorites[i].gifStill);
+    charGif.attr("data-move", favorites[i].gifMove);
+    charGif.attr("data-state", "still");
+    charGif.addClass("prgif mt-2");
+    favButton.addClass("fas fa-heart fav-button")
+    gifDiv.append(favButton);
+    gifDiv.append(charGif);
+    if (width < 768){
+      $(".gifcol1").prepend(gifDiv);
+    }
+    else {
+      if (i === 0 || i === 3 || i === 6){
+        $(".gifcol1").prepend(gifDiv);
+      }
+      else if (i === 1 || i === 4 || i === 7){
+        $(".gifcol2").prepend(gifDiv);
+      }
+      else if (i === 2 || i === 5 || i === 8){
+        $(".gifcol3").prepend(gifDiv);
+      }
+    }
+  }
+});
