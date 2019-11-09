@@ -108,9 +108,10 @@ $(".save").on("click", function() {
 });
 
 
-$(".prbutton").on("click", function() {
+$(document.body).on("click", ".prbutton", function() {
   $("#favorites-guide").hide();
   $(".clear").show();
+  $(".favgif").remove();
   var randomOffset = Math.floor(Math.random() * 50);
   var person = $(this).attr("data-char");
   var queryURL = `https://api.giphy.com/v1/gifs/search?q=${person}&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=9&offset=${randomOffset}`;
@@ -151,43 +152,43 @@ $(".prbutton").on("click", function() {
         }
       }
     }
-
-    $(".prgif").on("click", function() {
-      clearTimeout(touchTimer);
-      if (modalVisible === false){
-        var state = $(this).attr("data-state");
-        console.log(state)
-        if (state === "still"){
-          $(this).attr("src", $(this).attr("data-move"))
-          $(this).attr("data-state", "move");
-        }
-        else if (state === "move") {
-          $(this).attr("src", $(this).attr("data-still"))
-          $(this).attr("data-state", "still");
-        }
-      }
-    }).on("mousedown touchstart", function() {
-      var still = $(this).attr("data-still")
-      var move = $(this).attr("data-move")
-      touchTimer = setTimeout(function(){
-        var whatsappUrl = screenWidth < 768 ? `whatsapp://send?text=${move}` : `https://wa.me/?text=${move}`
-        $("#save-gif").attr("data-still", still).attr("data-move", move)
-        $("#open-gif").attr("href", move)
-        $("#wa-share").attr("href", whatsappUrl)
-        console.log(favorites)
-        modalVisible = true;
-        $(".modal").show()
-      },1000);
-    }).on("mouseup touchend", function() {
-      clearTimeout(touchTimer);
-      touchLength = 0;
-    }).on("touchmove", function() {
-      touchLength++
-      if(touchLength > 30){
-        clearTimeout(touchTimer);
-      }
-    });
   });
+});
+
+$(document.body).on("click", ".prgif", function() {
+  clearTimeout(touchTimer);
+  if (modalVisible === false){
+    var state = $(this).attr("data-state");
+    console.log(state)
+    if (state === "still"){
+      $(this).attr("src", $(this).attr("data-move"))
+      $(this).attr("data-state", "move");
+    }
+    else if (state === "move") {
+      $(this).attr("src", $(this).attr("data-still"))
+      $(this).attr("data-state", "still");
+    }
+  }
+}).on("mousedown touchstart", ".prgif", function() {
+  var still = $(this).attr("data-still")
+  var move = $(this).attr("data-move")
+  touchTimer = setTimeout(function(){
+    var whatsappUrl = screenWidth < 768 ? `whatsapp://send?text=${move}` : `https://wa.me/?text=${move}`
+    $("#save-gif").attr("data-still", still).attr("data-move", move)
+    $("#open-gif").attr("href", move)
+    $("#wa-share").attr("href", whatsappUrl)
+    console.log(favorites)
+    modalVisible = true;
+    $(".modal").show()
+  },1000);
+}).on("mouseup touchend", ".prgif", function() {
+  clearTimeout(touchTimer);
+  touchLength = 0;
+}).on("touchmove", ".prgif", function() {
+  touchLength++
+  if(touchLength > 30){
+    clearTimeout(touchTimer);
+  }
 });
 
 $("#save-gif").on("click", function() {
@@ -219,12 +220,6 @@ window.onclick = function(event) {
   }
 }
 
-window.oncontextmenu = function(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  return false;
-};
-
 $("#show-favorites").on("click", function() {
   if (favorites.length){
     $(".column").empty();
@@ -239,7 +234,7 @@ $("#show-favorites").on("click", function() {
       charGif.attr("data-still", favorites[i].gifStill);
       charGif.attr("data-move", favorites[i].gifMove);
       charGif.attr("data-state", "still");
-      charGif.addClass("prgif mt-2");
+      charGif.addClass("prgif favgif mt-2");
       favButton.addClass("fas fa-heart fav-button")
       //gifDiv.append(favButton);
       gifDiv.append(charGif);
@@ -265,3 +260,9 @@ $("#show-favorites").on("click", function() {
     $("#favorites-guide").show();
   }
 });
+
+window.oncontextmenu = function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+};
