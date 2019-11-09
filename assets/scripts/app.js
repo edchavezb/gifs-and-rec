@@ -172,7 +172,7 @@ $(".prbutton").on("click", function() {
       touchTimer = setTimeout(function(){
         $("#save-gif").attr("data-still", still).attr("data-move", move)
         $("#open-gif").attr("href", move)
-        $("#wa-share").attr("href", `https://api.whatsapp.com/send?text=${move}`)
+        $("#wa-share").attr("href", `whatsapp://send?text=${move}`)
         console.log(favorites)
         modalVisible = true;
         $(".modal").show()
