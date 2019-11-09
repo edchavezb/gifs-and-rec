@@ -174,9 +174,7 @@ $(".prbutton").on("click", function() {
       },1000);
     }).on("mouseup touchend", function() {
       clearTimeout(touchTimer);
-    }).on("mousemove touchmove", function() {
-      clearTimeout(touchTimer);
-    });;
+    });
   });
 });
 
@@ -189,7 +187,7 @@ $("#yes-save").on("click", function() {
   }
   favorites.push(gifSelectData)
   localStorage.setItem("favoriteGifs", JSON.stringify(favorites))
-  favorites = localStorage.getItem("favoriteGifs")
+  favorites = JSON.parse(localStorage.getItem("favoriteGifs"))
   console.log(favorites)
   $(".modal").hide()
   modalVisible = false;
