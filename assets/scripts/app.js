@@ -18,8 +18,8 @@ var pawnee = [
   {"fullname":"Donna Meagle", "name": "Donna"},
   {"fullname":"Jerry Gergich", "name": "Jerry"},
   {"fullname":"Craig Middlebrooks", "name": "Craig"},
-  {"fullname":"Jean-Ralphio", "name": "J. Ralphio"},
-  {"fullname":"Perd Hapley", "name": "P. Hapley"},
+  {"fullname":"Jean-Ralphio", "name": "J.Ralphio"},
+  {"fullname":"Perd Hapley", "name": "P.Hapley"},
   {"fullname":"Lil Sebastian", "name": "Not a pony"},
 ]
 
@@ -35,6 +35,7 @@ var selected = [
 var checksNumber = 0;
 
 $(".clear").hide();
+$("#favorites-guide").hide();
 $('.dropdown-menu').on('click', function(e) {
   e.stopPropagation();
 });
@@ -104,11 +105,11 @@ $(".save").on("click", function() {
   });
   console.log(selected);
   buttonRender();
-  ajaxCall();
 });
 
 
 $(".prbutton").on("click", function() {
+  $("#favorites-guide").hide();
   $(".clear").show();
   var randomOffset = Math.floor(Math.random() * 50);
   var person = $(this).attr("data-char");
@@ -223,35 +224,42 @@ window.oncontextmenu = function(event) {
 };
 
 $("#show-favorites").on("click", function() {
-  $(".column").empty();
-  $(".clear").show();
-  
-  for (var i = 0; i < favorites.length; i++) {
-    var gifDiv = $("<div>");
-    var charGif = $("<img>");
-    var favButton = $("<i>");
-    gifDiv.addClass("gif-div")
-    charGif.attr("src", favorites[i].gifStill);
-    charGif.attr("data-still", favorites[i].gifStill);
-    charGif.attr("data-move", favorites[i].gifMove);
-    charGif.attr("data-state", "still");
-    charGif.addClass("prgif mt-2");
-    favButton.addClass("fas fa-heart fav-button")
-    //gifDiv.append(favButton);
-    gifDiv.append(charGif);
-    if (width < 768){
-      $(".gifcol1").prepend(gifDiv);
-    }
-    else {
-      if (i === 0 || i === 3 || i === 6){
+  if (favorites.length){
+    $(".column").empty();
+    $(".clear").show();
+    
+    for (var i = 0; i < favorites.length; i++) {
+      var gifDiv = $("<div>");
+      var charGif = $("<img>");
+      var favButton = $("<i>");
+      gifDiv.addClass("gif-div")
+      charGif.attr("src", favorites[i].gifStill);
+      charGif.attr("data-still", favorites[i].gifStill);
+      charGif.attr("data-move", favorites[i].gifMove);
+      charGif.attr("data-state", "still");
+      charGif.addClass("prgif mt-2");
+      favButton.addClass("fas fa-heart fav-button")
+      //gifDiv.append(favButton);
+      gifDiv.append(charGif);
+      if (width < 768){
         $(".gifcol1").prepend(gifDiv);
       }
-      else if (i === 1 || i === 4 || i === 7){
-        $(".gifcol2").prepend(gifDiv);
-      }
-      else if (i === 2 || i === 5 || i === 8){
-        $(".gifcol3").prepend(gifDiv);
+      else {
+        if (i === 0 || i === 3 || i === 6){
+          $(".gifcol1").prepend(gifDiv);
+        }
+        else if (i === 1 || i === 4 || i === 7){
+          $(".gifcol2").prepend(gifDiv);
+        }
+        else if (i === 2 || i === 5 || i === 8){
+          $(".gifcol3").prepend(gifDiv);
+        }
       }
     }
+  }
+  else{
+    $(".column").empty();
+    $(".clear").hide();
+    $("#favorites-guide").show();
   }
 });

@@ -64,6 +64,14 @@ p{
     cursor: pointer;
 }
 
+#favorites-guide{
+    margin-top: 20px;
+    padding: 0px 20px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
 .buttons-row {
     display: inline-block;
     width: 98%;
