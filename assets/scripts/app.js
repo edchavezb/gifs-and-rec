@@ -169,19 +169,17 @@ $(".prbutton").on("click", function() {
       var move = $(this).attr("data-move")
       touchTimer = setTimeout(function(){
         $("#yes-save").attr("data-still", still).attr("data-move", move)
+        $("#open-gif").attr("href", move)
         console.log(favorites)
         modalVisible = true;
         $(".modal").show()
       },1000);
     }).on("mouseup touchend", function() {
-      console.log("Short press! Action cancelled")
       clearTimeout(touchTimer);
       touchLength = 0;
     }).on("touchmove", function() {
       touchLength++
-      console.log(touchLength)
       if(touchLength > 30){
-        console.log("You moved the cursor! Action cancelled")
         clearTimeout(touchTimer);
       }
     });

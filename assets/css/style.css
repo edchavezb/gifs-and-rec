@@ -18,6 +18,7 @@ body {
 .btn-success{
     background: #48B137;
     border-color: #48B137;
+    width: 100%
 }
 
 .btn:active:focus, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active{
