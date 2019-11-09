@@ -1,15 +1,19 @@
 
 var width = $(window).width()
-var gifCount = 0
+var modalVisible = false;
+var modal = document.getElementById("myModal");
+var favorites = localStorage.getItem("favoriteGifs") !== null ? JSON.parse(localStorage.getItem("favoriteGifs")) : []
+console.log(favorites)
 
-if (localStorage.getItem('gifCount') !== null){
-  gifCount = localStorage.getItem('gifCount')
-}
-else {
-  localStorage.setItem('gifCount', gifCount)
+window.onclick = function(event) {
+  if (event.target == modal) {
+    $(".modal").hide()
+  }
 }
 
-console.log(localStorage.getItem('gifCount'))
+$("#no-save").on("click", function() {
+  $(".modal").hide()
+});
 
 var pawnee = [
   {"fullname":"Leslie Knope", "name": "Leslie"}, 
@@ -112,63 +116,97 @@ $(".save").on("click", function() {
   ajaxCall();
 });
 
-function ajaxCall(){
-  $(".prbutton").on("click", function() {
-    $(".clear").show();
-    var person = $(this).attr("data-char");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=10";
 
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    })
-    .then(function(response) {
-      var results = response.data;
-      console.log(results);
+$(".prbutton").on("click", function() {
+  $(".clear").show();
+  var person = $(this).attr("data-char");
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=10";
 
-      for (var i = 0; i < results.length; i++) {
-        var gifDiv = $("<div>");
-        var charGif = $("<img>");
-        charGif.attr("src", results[i].images.original_still.url);
-        charGif.attr("data-still", results[i].images.original_still.url);
-        charGif.attr("data-move", results[i].images.original.url);
-        charGif.attr("data-state", "still");
-        charGif.addClass("prgif mt-2");
-        gifDiv.append(charGif);
-        if (width < 768){
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  .then(function(response) {
+    var results = response.data;
+    console.log(results);
+
+    for (var i = 0; i < results.length; i++) {
+      var gifDiv = $("<div>");
+      var charGif = $("<img>");
+      var favButton = $("<i>");
+      gifDiv.addClass("gif-div")
+      charGif.attr("src", results[i].images.original_still.url);
+      charGif.attr("data-still", results[i].images.original_still.url);
+      charGif.attr("data-move", results[i].images.original.url);
+      charGif.attr("data-state", "still");
+      charGif.addClass("prgif mt-2");
+      favButton.addClass("fas fa-heart fav-button")
+      gifDiv.append(favButton);
+      gifDiv.append(charGif);
+      if (width < 768){
+        $(".gifcol1").prepend(gifDiv);
+      }
+      else {
+        if (i <= 2){
           $(".gifcol1").prepend(gifDiv);
         }
-        else {
-          if (i <= 2){
-            $(".gifcol1").prepend(gifDiv);
-          }
-          else if (i <= 5){
-            $(".gifcol2").prepend(gifDiv);
-          }
-          else if (i <= 8){
-            $(".gifcol3").prepend(gifDiv);
-          }
+        else if (i <= 5){
+          $(".gifcol2").prepend(gifDiv);
+        }
+        else if (i <= 8){
+          $(".gifcol3").prepend(gifDiv);
         }
       }
+    }
 
-      $(".prgif").on("click", function() {
+    $(".prgif").on("mousedown touchstart", function() {
+      var still = $(this).attr("data-still")
+      var move = $(this).attr("data-move")
+      timer = setTimeout(function(){
+        $("#yes-save").attr("data-still", still).attr("data-move", move)
+        console.log(favorites)
+        modalVisible = true;
+        $(".modal").show()
+      },1000);
+    }).on("mouseup touchend", function() {
+      clearTimeout(timer);
+      if (modalVisible === false){
         var state = $(this).attr("data-state");
-        
+        console.log(state)
         if (state === "still"){
           $(this).attr("src", $(this).attr("data-move"))
           $(this).attr("data-state", "move");
         }
-      
         else if (state === "move") {
           $(this).attr("src", $(this).attr("data-still"))
           $(this).attr("data-state", "still");
         }
-      });
-
+      }
     });
-
   });
-}
+});
 
-ajaxCall();
+$("#yes-save").on("click", function() {
+  var still = $(this).attr("data-still")
+  var move = $(this).attr("data-move")
+  var gifSelectData = {
+    gifStill: still,
+    gifMove: move
+  }
+  favorites.push(gifSelectData)
+  localStorage.setItem("favoriteGifs", JSON.stringify(favorites))
+  favorites = localStorage.getItem("favoriteGifs")
+  console.log(favorites)
+  $(".modal").hide()
+});
+
+$("#no-save").on("click", function() {
+  $(".modal").hide()
+});
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    $(".modal").hide()
+  }
+}
 
