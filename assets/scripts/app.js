@@ -174,6 +174,9 @@ $(".prbutton").on("click", function() {
       },1000);
     }).on("mouseup touchend", function() {
       clearTimeout(touchTimer);
+    }).on("mousemove touchmove", function() {
+      console.log("You moved the cursor! Action cancelled")
+      clearTimeout(touchTimer);
     });
   });
 });
