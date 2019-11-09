@@ -237,7 +237,7 @@ $("#show-favorites").on("click", function() {
     charGif.attr("data-state", "still");
     charGif.addClass("prgif mt-2");
     favButton.addClass("fas fa-heart fav-button")
-    gifDiv.append(favButton);
+    //gifDiv.append(favButton);
     gifDiv.append(charGif);
     if (width < 768){
       $(".gifcol1").prepend(gifDiv);
