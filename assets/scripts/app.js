@@ -1,4 +1,4 @@
-var width = $(window).width()
+var screenWidth = $(window).width()
 var touchTimer;
 var touchLength = 0;
 var modalVisible = false;
@@ -136,7 +136,7 @@ $(".prbutton").on("click", function() {
       favButton.addClass("fas fa-heart fav-button")
       //gifDiv.append(favButton);
       gifDiv.append(charGif);
-      if (width < 768){
+      if (screenWidth < 768){
         $(".gifcol1").prepend(gifDiv);
       }
       else {
@@ -170,9 +170,10 @@ $(".prbutton").on("click", function() {
       var still = $(this).attr("data-still")
       var move = $(this).attr("data-move")
       touchTimer = setTimeout(function(){
+        var whatsappUrl = screenWidth < 768 ? `whatsapp://send?text=${move}` : `https://wa.me/?text=${move}`
         $("#save-gif").attr("data-still", still).attr("data-move", move)
         $("#open-gif").attr("href", move)
-        $("#wa-share").attr("href", `whatsapp://send?text=${move}`)
+        $("#wa-share").attr("href", whatsappUrl)
         console.log(favorites)
         modalVisible = true;
         $(".modal").show()
@@ -242,7 +243,7 @@ $("#show-favorites").on("click", function() {
       favButton.addClass("fas fa-heart fav-button")
       //gifDiv.append(favButton);
       gifDiv.append(charGif);
-      if (width < 768){
+      if (screenWidth < 768){
         $(".gifcol1").prepend(gifDiv);
       }
       else {
