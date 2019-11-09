@@ -110,8 +110,9 @@ $(".save").on("click", function() {
 
 $(".prbutton").on("click", function() {
   $(".clear").show();
+  var randomOffset = Math.floor(Math.random() * 100);
   var person = $(this).attr("data-char");
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + person + "&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=10";
+  var queryURL = `https://api.giphy.com/v1/gifs/search?q=${person}&api_key=XViHxSYvhctVpSqIAOWeOS3Yb4qKYawo&limit=10&offset=${randomOffset}`;
 
   $.ajax({
     url: queryURL,
