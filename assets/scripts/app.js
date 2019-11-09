@@ -1,19 +1,9 @@
-
 var width = $(window).width()
+var touchTimer;
 var modalVisible = false;
 var modal = document.getElementById("myModal");
 var favorites = localStorage.getItem("favoriteGifs") !== null ? JSON.parse(localStorage.getItem("favoriteGifs")) : []
 console.log(favorites)
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    $(".modal").hide()
-  }
-}
-
-$("#no-save").on("click", function() {
-  $(".modal").hide()
-});
 
 var pawnee = [
   {"fullname":"Leslie Knope", "name": "Leslie"}, 
@@ -160,7 +150,7 @@ $(".prbutton").on("click", function() {
     }
 
     $(".prgif").on("click", function() {
-      clearTimeout(timer);
+      clearTimeout(touchTimer);
       if (modalVisible === false){
         var state = $(this).attr("data-state");
         console.log(state)
@@ -173,23 +163,21 @@ $(".prbutton").on("click", function() {
           $(this).attr("data-state", "still");
         }
       }
-    });
+    }).on("mousedown touchstart", function() {
+      var still = $(this).attr("data-still")
+      var move = $(this).attr("data-move")
+      touchTimer = setTimeout(function(){
+        $("#yes-save").attr("data-still", still).attr("data-move", move)
+        console.log(favorites)
+        modalVisible = true;
+        $(".modal").show()
+      },1000);
+    }).on("mouseup touchend", function() {
+      clearTimeout(touchTimer);
+    }).on("mousemove touchmove", function() {
+      clearTimeout(touchTimer);
+    });;
   });
-});
-
-$(document.body).on("mousedown touchstart", ".prgif", function() {
-  var still = $(this).attr("data-still")
-  var move = $(this).attr("data-move")
-  timer = setTimeout(function(){
-    $("#yes-save").attr("data-still", still).attr("data-move", move)
-    console.log(favorites)
-    modalVisible = true;
-    $(".modal").show()
-  },1000);
-}).on("mouseup touchend", ".prgif", function() {
-  clearTimeout(timer);
-}).on("mousemove touchmove", ".prgif", function() {
-  clearTimeout(timer);
 });
 
 $("#yes-save").on("click", function() {
@@ -210,14 +198,19 @@ $("#yes-save").on("click", function() {
 $("#no-save").on("click", function() {
   $(".modal").hide()
   modalVisible = false;
-  clearTimeout(timer);
+  clearTimeout(touchTimer);
 });
 
 window.onclick = function(event) {
   if (event.target == modal) {
     $(".modal").hide()
     modalVisible = false;
-    clearTimeout(timer);
+    clearTimeout(touchTimer);
   }
 }
 
+window.oncontextmenu = function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+};
