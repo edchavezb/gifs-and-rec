@@ -1,5 +1,6 @@
 var width = $(window).width()
 var touchTimer;
+var touchLength = 0;
 var modalVisible = false;
 var modal = document.getElementById("myModal");
 var favorites = localStorage.getItem("favoriteGifs") !== null ? JSON.parse(localStorage.getItem("favoriteGifs")) : []
@@ -173,10 +174,16 @@ $(".prbutton").on("click", function() {
         $(".modal").show()
       },1000);
     }).on("mouseup touchend", function() {
+      console.log("Short press! Action cancelled")
       clearTimeout(touchTimer);
-    }).on("mousemove touchmove", function() {
-      console.log("You moved the cursor! Action cancelled")
-      clearTimeout(touchTimer);
+      touchLength = 0;
+    }).on("touchmove", function() {
+      touchLength++
+      console.log(touchLength)
+      if(touchLength > 30){
+        console.log("You moved the cursor! Action cancelled")
+        clearTimeout(touchTimer);
+      }
     });
   });
 });
