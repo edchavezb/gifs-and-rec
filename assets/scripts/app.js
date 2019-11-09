@@ -170,8 +170,9 @@ $(".prbutton").on("click", function() {
       var still = $(this).attr("data-still")
       var move = $(this).attr("data-move")
       touchTimer = setTimeout(function(){
-        $("#yes-save").attr("data-still", still).attr("data-move", move)
+        $("#save-gif").attr("data-still", still).attr("data-move", move)
         $("#open-gif").attr("href", move)
+        $("#wa-share").attr("href", `https://wa.me/?text=${move}`)
         console.log(favorites)
         modalVisible = true;
         $(".modal").show()
@@ -188,7 +189,7 @@ $(".prbutton").on("click", function() {
   });
 });
 
-$("#yes-save").on("click", function() {
+$("#save-gif").on("click", function() {
   var still = $(this).attr("data-still")
   var move = $(this).attr("data-move")
   var gifSelectData = {
