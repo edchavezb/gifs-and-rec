@@ -282,6 +282,9 @@ $(".clear").on("click", () => {
 buttonRender();
 generateCheckboxes();
 
+// Disable context menu so it does not interfere with longpress
+$('body').on('contextmenu',function(){return false;});
+
 // Hide unnecesary UI items on page load
 $(".clear").hide();
 $("#favorites-guide").hide();
