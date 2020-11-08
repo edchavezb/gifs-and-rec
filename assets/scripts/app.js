@@ -47,16 +47,18 @@ function checksChecker() {
   else $("input.form-check-input").removeAttr("disabled");
 }
 
-$(".first").find("label").text(pawnee[0].fullname);
-
-for (var i = 1; i < pawnee.length; i++) {
-  var newChar = $("<div>");
-  newChar.html($(".first").html());
-  newChar.addClass("form-group row mb-1 char-"+i);
-  newChar.appendTo(".selector");
-  newChar.find("label").text(pawnee[i].fullname);
-  newChar.find("input").val(JSON.stringify(pawnee[i]));
-  console.log(JSON.stringify(pawnee[i]));
+const generateCheckboxes = () => {
+  for (var i = 0; i < pawnee.length; i++) {
+    var newChar = $("<div>");
+    newChar.html($(".first").html());
+    newChar.addClass("form-group row mb-1 char-"+i);
+    newChar.appendTo(".selector");
+    newChar.find("label").text(pawnee[i].fullname);
+    newChar.find("input").val(JSON.stringify(pawnee[i]));
+    console.log(JSON.stringify(pawnee[i]));
+  }
+  
+  $(".first").hide();
 }
 
 $('input[type="checkbox"]').click(function(){
@@ -89,6 +91,7 @@ function buttonRender() {
   }
 }
 
+generateCheckboxes();
 buttonRender();
 
 $(".clear").on("click", function() {
@@ -96,17 +99,17 @@ $(".clear").on("click", function() {
   $(".clear").hide();
 });
 
-$(".save").on("click", function() {
+$(".save").on("click", function(event) {
   event.preventDefault();
   selected.length = 0;
   $.each($("input[id='dropdownCheck']:checked"), function(){ 
-    var selChar = $(this).val();      
+    var selChar = $(this).val();
+    console.log(selChar)     
     selected.push(JSON.parse(selChar));
   });
   console.log(selected);
   buttonRender();
 });
-
 
 $(document.body).on("click", ".prbutton", function() {
   $("#favorites-guide").hide();
