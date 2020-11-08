@@ -17,9 +17,9 @@ Click on the name of your favorite Parks and Rec character to display a selectio
 
 ## Demo
 
-Click [here](https://edgar821.github.io/gifs-and-rec/) to launch the app.
+Click [here](https://edchavezb.github.io/gifs-and-rec/) to launch the app.
 
 
 ## Authors
 
-* **[Edgar Chávez](https://github.com/edgar821)**
+* **[Edgar Chávez](https://github.com/edchavezb)**
