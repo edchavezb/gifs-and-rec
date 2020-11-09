@@ -64,21 +64,26 @@ const buttonRender = () => {
   }
 }
 
-
 // Generates checkboxes for the selection menu from the pawnee array defined above
 const generateCheckboxes = () => {
 
   // Cycles through the array of all characters and creates checkboxes for each
   for (var i = 0; i < pawnee.length; i++) {
     var newChar = $("<div>");
-    newChar.html($(".template").html()); // Copies the template checkbox into the new div
-    newChar.addClass("form-group row mb-1 char-"+i);
+    newChar.html($("#template").html()); // Copies the template checkbox into the new div
+    newChar.addClass("form-group row mb-1");
     newChar.appendTo(".selector");
-    newChar.find("label").text(pawnee[i].fullname); // Checkbox text is added from character array
+    newChar.find("input").attr('id', "char-"+i)
+    newChar.find("label").text(pawnee[i].fullname);
+    newChar.find("label").attr('for', 'char-'+i);  // Checkbox text is added from character array
     newChar.find("input").val(JSON.stringify(pawnee[i])); // Checkbox value is added from character array
   }
-  $(".template").hide();
+  $("#template").hide();
 }
+
+// Buttons and checkboxes are generated on page load
+buttonRender();
+generateCheckboxes();
 
 // Generates gifs from a passed gif array and distributes them in columns
 const generateGifs = (gifArray, favorite) => {
@@ -132,7 +137,7 @@ const checksChecker = () => {
 }
 
 // Checking a checkbox will increase a counter and perform a check, disabling checkboxes when counter is greater than 6
-$('input[type="checkbox"]').click(function(){
+$('input[type=checkbox').unbind('change').change(function(){
   if($(this).prop("checked") == true){
     checksNumber++
   }
@@ -148,7 +153,7 @@ $(".save").on("click", event => {
   selected.length = 0; // Clears original selection of characters
 
   // Reintroduce selected characters to the selected array
-  $.each($("input[id='dropdownCheck']:checked"), function(){ 
+  $.each($("input[class='form-check-input']:checked"), function(){ 
     var selChar = $(this).val(); 
     selected.push(JSON.parse(selChar));
   });
@@ -278,16 +283,14 @@ $(".clear").on("click", () => {
   $(".clear").hide();
 });
 
-// Buttons and checkboxes are generated on page load
-buttonRender();
-generateCheckboxes();
-
 // Disable context menu so it does not interfere with longpress
-$('body').on('contextmenu',function(){return false;});
+$('body').on('contextmenu', function(){return false;});
 
 // Hide unnecesary UI items on page load
 $(".clear").hide();
 $("#favorites-guide").hide();
+
+// Prevents dropdown from closing when clicking inside
 $('.dropdown-menu').on('click', function(e) {
   e.stopPropagation();
 });
