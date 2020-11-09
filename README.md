@@ -12,8 +12,7 @@ A site for lovers of GIFs and Parks and Recreation. Clicking on characters will 
 
 
 ## Usage
-Click on the name of your favorite Parks and Rec character to display a selection of 9 random gifs that will remind you of some of the funniest moments of the series. Clicking on a gif will animate it. If you are not a fan of the default characters, you can click on the + button to select others to be displayed. Saving gifs on your browser session is coming up as a new feature if you don't want to download the gif to your machine.
-
+Click on the name of your favorite Parks and Rec character to display a selection of 9 random gifs that will remind you of some of the funniest moments of the series. Clicking on a gif will animate it. If you are not a fan of the default characters, you can click on the + button to select others to be displayed. Long-press on any gif to save it to your local favorites or share it with friends on Whatsapp.
 
 ## Demo
 
